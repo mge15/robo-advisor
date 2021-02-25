@@ -5,6 +5,7 @@ import json
 import os
 import requests
 from datetime import datetime
+from dotenv import load_dotenv
 
 def to_usd(my_price):
     """
@@ -18,10 +19,27 @@ def to_usd(my_price):
     """
     return f"${my_price:,.2f}"  # > $12,000.71
 
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo"
+load_dotenv()
+
+while True:
+    symbol = input("Please input one stock or cryptocurrency symbol: ")
+    if symbol.isalpha() and len(symbol) < 5:
+        break
+    else:
+        print("Expecting a properly-formed stock symbol like 'MSFT'. Please try again.")
+
+api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
+
+request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
 response = requests.get(request_url)
 
 parsed_response = json.loads(response.text)
+
+if parsed_response.contains("error"):
+    print("Sorry, couldn't find any trading data for that stock symbol")
+    break #fix this
+else:
+
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
@@ -71,7 +89,7 @@ with open(csv_file_path, "w") as csv_file:
 
 
 print("-------------------------")
-print("SELECTED SYMBOL: XYZ")
+print("SELECTED SYMBOL: ", symbol.upper())
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: ", human_friendly_timestamp)
@@ -81,7 +99,7 @@ print("LATEST CLOSE: ", to_usd(latest_close))
 print("RECENT HIGH: ", to_usd(recent_high))
 print("RECENT LOW: ", to_usd(recent_low))
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
+print("RECOMMENDATION: BUY!") #need to still do this
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print("WRITING DATA TO CSV: ", csv_file_path)
