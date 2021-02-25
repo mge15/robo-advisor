@@ -21,13 +21,29 @@ response = requests.get(request_url)
 
 parsed_response = json.loads(response.text)
 
-latest_day = parsed_response["Meta Data"]["3. Last Refreshed"]
+last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
+
+# assumes that first day is on top
+dates = list(parsed_response["Time Series (Daily)"].keys())
+latest_day = dates[0]
 
 latest_close = float(parsed_response["Time Series (Daily)"][latest_day]["4. close"])
 
-recent_high = float(parsed_response["Time Series (Daily)"][latest_day]["2. high"])
+# get high price form each day
+high_prices = []
+low_prices = []
 
-recent_low = float(parsed_response["Time Series (Daily)"][latest_day]["3. low"])
+for date in dates:
+    high_price = float(parsed_response["Time Series (Daily)"][date]["2. high"])
+    high_prices.append(high_price)
+    low_price = float(parsed_response["Time Series (Daily)"][date]["3. low"])
+    low_prices.append(low_price)
+
+# maximum of all of the high prices
+recent_high = max(high_prices)
+
+# minimum of all the low prices
+recent_low = min(low_prices)
 
 timestamp = datetime.now()
 human_friendly_timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
@@ -38,7 +54,7 @@ print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: ", human_friendly_timestamp)
 print("-------------------------")
-print("LATEST DAY: ", latest_day)
+print("LATEST DAY: ", last_refreshed)
 print("LATEST CLOSE: ", to_usd(latest_close))
 print("RECENT HIGH: ", to_usd(recent_high))
 print("RECENT LOW: ", to_usd(recent_low))
