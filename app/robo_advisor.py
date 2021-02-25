@@ -25,6 +25,10 @@ latest_day = parsed_response["Meta Data"]["3. Last Refreshed"]
 
 latest_close = float(parsed_response["Time Series (Daily)"][latest_day]["4. close"])
 
+recent_high = float(parsed_response["Time Series (Daily)"][latest_day]["2. high"])
+
+recent_low = float(parsed_response["Time Series (Daily)"][latest_day]["3. low"])
+
 timestamp = datetime.now()
 human_friendly_timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -36,8 +40,8 @@ print("REQUEST AT: ", human_friendly_timestamp)
 print("-------------------------")
 print("LATEST DAY: ", latest_day)
 print("LATEST CLOSE: ", to_usd(latest_close))
-print("RECENT HIGH: $101,000.00")
-print("RECENT LOW: $99,000.00")
+print("RECENT HIGH: ", to_usd(recent_high))
+print("RECENT LOW: ", to_usd(recent_low))
 print("-------------------------")
 print("RECOMMENDATION: BUY!")
 print("RECOMMENDATION REASON: TODO")
