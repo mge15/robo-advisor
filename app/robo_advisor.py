@@ -8,6 +8,7 @@ response = requests.get(request_url)
 
 parsed_response = json.loads(response.text)
 
+latest_day = parsed_response["Meta Data"]["3. Last Refreshed"]
 
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
@@ -15,7 +16,7 @@ print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: 2018-02-20 02:00pm")
 print("-------------------------")
-print("LATEST DAY: 2018-02-20")
+print("LATEST DAY: ", latest_day)
 print("LATEST CLOSE: $100,000.00")
 print("RECENT HIGH: $101,000.00")
 print("RECENT LOW: $99,000.00")
