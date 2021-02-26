@@ -31,15 +31,15 @@ while True:
 api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 
 request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={api_key}"
-response = requests.get(request_url)
 
-parsed_response = json.loads(response.text)
-
-if parsed_response.contains("error"):
-    print("Sorry, couldn't find any trading data for that stock symbol")
-    break #fix this
-else:
-
+while True:
+    response = requests.get(request_url)
+    parsed_response = json.loads(response.text)
+    if "Error Message" in parsed_response.keys():
+        print("Sorry, couldn't find any trading data for that stock symbol")
+        exit()
+    else:
+        break
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
