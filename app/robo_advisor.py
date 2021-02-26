@@ -4,8 +4,10 @@ import csv
 import json
 import os
 import requests
+import seaborn as sns
 from datetime import datetime
 from dotenv import load_dotenv
+from pandas import DataFrame
 
 def to_usd(my_price):
     """
@@ -51,15 +53,21 @@ for sym in symbol_list:
 
     latest_close = float(parsed_response["Time Series (Daily)"][latest_day]["4. close"])
 
-    # get high price form each day
+    # get high price from each day
     high_prices = []
     low_prices = []
+    late_closes = []
 
     for date in dates:
         high_price = float(parsed_response["Time Series (Daily)"][date]["2. high"])
         high_prices.append(high_price)
         low_price = float(parsed_response["Time Series (Daily)"][date]["3. low"])
         low_prices.append(low_price)
+        late_close = float(parsed_response["Time Series (Daily)"][date]["4. close"])
+        late_closes.append({"date": date, "stock price": late_close})
+
+    # creating data frame
+    line_df = DataFrame(late_closes)
 
     # maximum of all of the high prices
     recent_high = max(high_prices)
@@ -112,6 +120,8 @@ for sym in symbol_list:
     print("-------------------------")
     print("WRITING DATA TO CSV: ", csv_file_path)
     print("-------------------------")
+    print("Displaying Line Chart of Close Prices over Time...")
+    sns.lineplot(data=line_df, x="date", y="stock price")
     print()
     print()
 
