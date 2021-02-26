@@ -70,6 +70,12 @@ for sym in symbol_list:
     timestamp = datetime.now()
     human_friendly_timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
+    if latest_close < (1.2 * recent_low):
+        recommendation = "Buy"
+        reason = "The current stock price is close to the recent low i.e. within 20%"
+    else:
+        recommendation = "Don't Buy"
+        reason = "The current stock price is too high to consider buying"
 
     csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", f"prices_{sym}.csv")
 
@@ -101,8 +107,8 @@ for sym in symbol_list:
     print("RECENT HIGH: ", to_usd(recent_high))
     print("RECENT LOW: ", to_usd(recent_low))
     print("-------------------------")
-    print("RECOMMENDATION: BUY!") #need to still do this
-    print("RECOMMENDATION REASON: TODO")
+    print("RECOMMENDATION: ", recommendation)
+    print("RECOMMENDATION REASON: ", reason)
     print("-------------------------")
     print("WRITING DATA TO CSV: ", csv_file_path)
     print("-------------------------")
