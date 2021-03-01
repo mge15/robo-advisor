@@ -8,6 +8,7 @@ import seaborn as sns
 from datetime import datetime
 from dotenv import load_dotenv
 from pandas import DataFrame
+from matplotlib import pyplot as plt
 
 def to_usd(my_price):
     """
@@ -41,7 +42,7 @@ for sym in symbol_list:
         response = requests.get(request_url)
         parsed_response = json.loads(response.text)
         if "Error Message" in parsed_response.keys():
-            print("Sorry, couldn't find any trading data for that stock symbol")
+            print("Sorry, couldn't find any trading data for the", sym, "stock symbol")
             exit()
         else:
             break
@@ -68,6 +69,7 @@ for sym in symbol_list:
 
     # creating data frame
     line_df = DataFrame(late_closes)
+    print(late_closes)
 
     # maximum of all of the high prices
     recent_high = max(high_prices)
@@ -122,6 +124,9 @@ for sym in symbol_list:
     print("-------------------------")
     print("Displaying Line Chart of Close Prices over Time...")
     sns.lineplot(data=line_df, x="date", y="stock price")
+    plt.grid()
+    plt.xlabel("Date", fontsize=12)
+    plt.ylabel(" Price (USD)", fontsize=12)
     print()
     print()
 
