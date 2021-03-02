@@ -4,11 +4,13 @@ import csv
 import json
 import os
 import requests
+import plotly
 import seaborn as sns
+import plotly.express as px
 from datetime import datetime
 from dotenv import load_dotenv
 from pandas import DataFrame
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
 def to_usd(my_price):
     """
@@ -58,6 +60,7 @@ for sym in symbol_list:
     high_prices = []
     low_prices = []
     late_closes = []
+    end = 0
 
     for date in dates:
         high_price = float(parsed_response["Time Series (Daily)"][date]["2. high"])
@@ -69,7 +72,6 @@ for sym in symbol_list:
 
     # creating data frame
     line_df = DataFrame(late_closes)
-    print(late_closes)
 
     # maximum of all of the high prices
     recent_high = max(high_prices)
@@ -123,10 +125,9 @@ for sym in symbol_list:
     print("WRITING DATA TO CSV: ", csv_file_path)
     print("-------------------------")
     print("Displaying Line Chart of Close Prices over Time...")
-    sns.lineplot(data=line_df, x="date", y="stock price")
-    plt.grid()
-    plt.xlabel("Date", fontsize=12)
-    plt.ylabel(" Price (USD)", fontsize=12)
+    #sns.lineplot(data=line_df, x="date", y="stock price")
+    graph = px.line(line_df, x="date", y="stock price", title=f"Stock Price over Time: {sym.upper()}")
+    graph.show()
     print()
     print()
 
