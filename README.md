@@ -65,3 +65,46 @@ python app/robo_advisor.py
 ```
 
 If you see the example output i.e. the print statements we put inside robo_advisor.py earlier, then you are ready to move on to project development
+
+## Security Requirements
+
+This program will need an API Key to issue request to the AlphaVantage API {https://www.alphavantage.co/}
+
+The program's source could should not include the secret API Key value so you need to set an environment variable called ALPHAVANTAGE_API_KEY, and your program should read the API Key from this environment variable at run-time
+
+We are going to be using the dotenv Package to do this. First, install the package
+
+```sh
+pip install python-dotenv # note: NOT just "dotenv"
+```
+
+Second, create a file in your director named ".env" and place the following contents inside
+
+```sh
+#robo-advisor/.env
+
+ALPHAVANTAGE_API_KEY=" "
+```
+
+Next, use the link above to get your free API key. Copy the key and paste it in the quotation marks in the .env file
+
+In robo_advisor.py, add the following code
+
+```sh
+import os
+from dotenv import load_dotenv
+
+load_dotenv() #> loads contents of the .env file into the script's environment
+
+api_key = os.environ.get("ALPHAVANTAGE_API_KEY") # reads the variable from the environment
+# puts the key into a variable that can be used in your code
+```
+
+You will also need to ignore ".env" files from version control. To do this, create a file in the "robo-advisor" directory named ".gitignore" and place inside the following contents:
+
+```sh
+# robo-advisor/.gitignore
+
+# ignore the ".env" file:
+.env
+```
