@@ -80,7 +80,7 @@ for sym in symbol_list:
         recent_low = min(low_prices)
 
         timestamp = datetime.now()
-        human_friendly_timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        human_friendly_timestamp = timestamp.strftime("%B %d, %Y at %I:%M %p")
 
         if latest_close < (1.2 * recent_low):
             recommendation = "Buy"
