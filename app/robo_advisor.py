@@ -109,12 +109,12 @@ for sym in symbol_list:
 
 
         print("-------------------------")
-        print("SELECTED SYMBOL: ", sym.upper())
+        print("SELECTED STOCK: ", sym.upper())
         print("-------------------------")
         print("REQUESTING STOCK MARKET DATA...")
         print("REQUEST AT: ", human_friendly_timestamp)
         print("-------------------------")
-        print("LATEST DAY: ", last_refreshed)
+        print("LATEST DATA FROM: ", last_refreshed)
         print("LATEST CLOSE: ", to_usd(latest_close))
         print("RECENT HIGH: ", to_usd(recent_high))
         print("RECENT LOW: ", to_usd(recent_low))
