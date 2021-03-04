@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 ## Setup
 
-This program will need an API Key to issue request to the [AlphaVantage API] (https://www.alphavantage.co/)
+This program will need an API Key to issue request to the [AlphaVantage API](https://www.alphavantage.co/)
 
 The program's source should not include the secret API Key value so you need to set an environment variable called ALPHAVANTAGE_API_KEY, and your program should read the API Key from this environment variable at run-time
 
