@@ -43,7 +43,9 @@ for sym in symbol_list:
     parsed_response = json.loads(response.text)
     if "Error Message" in parsed_response.keys():
         print()
-        print("Sorry, couldn't find any trading data for the", sym, "stock symbol")
+        print("-------------------------")
+        print("Sorry, couldn't find any trading data for the", sym.upper(), "stock symbol")
+        print("-------------------------")
         print()
     else:
         last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
@@ -125,7 +127,6 @@ for sym in symbol_list:
         print("Displaying Line Chart of Close Prices over Time in browser for your consideration...")
         graph = px.line(line_df, x="date", y="stock price", title=f"Stock Price over Time: {sym.upper()}")
         graph.show()
-        print()
         print()
 
 print("-------------------------")
