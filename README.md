@@ -3,7 +3,7 @@
 
 ***Credit to Prof Rossetti's "Robo Advisor" Read Me File for the setup information
 
-For this remote repository under your own control, then "clone" or download your remote copy ont your local computer. Choose a familiar download location so that it is easy to find.
+For this remote repository under your own control, then "clone" or download your remote copy ont0 your local computer. Choose a familiar download location so that it is easy to find.
 
 After cloning the repo, navigate there from the command-line. The following commands assume that you are running the commands from the local repository's root directory:
 
@@ -26,9 +26,9 @@ pip install -r requirements.txt
 
 ## Setup
 
-This program will need an API Key to issue request to the AlphaVantage API {https://www.alphavantage.co/}
+This program will need an API Key to issue request to the [AlphaVantage API] (https://www.alphavantage.co/)
 
-The program's source could should not include the secret API Key value so you need to set an environment variable called ALPHAVANTAGE_API_KEY, and your program should read the API Key from this environment variable at run-time
+The program's source should not include the secret API Key value so you need to set an environment variable called ALPHAVANTAGE_API_KEY, and your program should read the API Key from this environment variable at run-time
 
 In the root directory of your local repository, create a new file called ".env", and update the contents of the ".env" file to include your API Key value
 
@@ -36,6 +36,15 @@ In the root directory of your local repository, create a new file called ".env",
 #robo-advisor/.env
 
 ALPHAVANTAGE_API_KEY="Your API Key Value Here"
+```
+
+You will also need to ignore ".env" files from version control. To do this, create a file in the "robo-advisor" directory named ".gitignore" and place inside the following contents:
+
+```sh
+# robo-advisor/.gitignore
+
+# ignore the ".env" file:
+.env
 ```
 
 ## Usage
