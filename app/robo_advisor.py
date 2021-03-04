@@ -5,7 +5,7 @@ import json
 import os
 import requests
 import plotly
-import seaborn as sns
+#import seaborn as sns
 import plotly.express as px
 from datetime import datetime
 from dotenv import load_dotenv
@@ -124,7 +124,7 @@ for sym in symbol_list:
     print("-------------------------")
     print("WRITING DATA TO CSV: ", csv_file_path)
     print("-------------------------")
-    print("Displaying Line Chart of Close Prices over Time...")
+    print("Displaying Line Chart of Close Prices over Time in browser...")
     #sns.lineplot(data=line_df, x="date", y="stock price")
     graph = px.line(line_df, x="date", y="stock price", title=f"Stock Price over Time: {sym.upper()}")
     graph.show()
